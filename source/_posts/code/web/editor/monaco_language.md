@@ -1,5 +1,5 @@
 ---
-title: Markodwn 编辑器 -2- 语法
+title: Markdown 编辑器 -2- 语法
 lang: zh
 date: 2020/9/1 19:52
 type: post
@@ -12,7 +12,7 @@ tags:
 - markdown
 ---
 
-## 官方语言定义
+## 官方语法定义
 
 - [Monaco Languages](https://github.com/microsoft/monaco-languages)
 
@@ -164,7 +164,7 @@ let language = {
 关于@rematch, @pop以及其它的语法，在官方文档[Monarch](https://microsoft.github.io/monaco-editor/monarch.html)中有着详细的解释。
 :::
 
-### 构建语法配置
+### 构建基础配置
 
 语法配置其实很简单，甚至可以说是通用。Markdown要配置的就是一些快捷操作：
 
