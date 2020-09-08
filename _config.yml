@@ -78,6 +78,15 @@ markdown:
     - markdown-it-task-checkbox
     - name: markdown-it-container
       options: tip
+    - name: markdown-it-container
+      options: warning
+    - name: markdown-it-container
+      options: danger
+    - name: markdown-it-container
+      options: info
+    - name: markdown-it-container
+      options: success
+    - markdown-it-plantuml
     - markdown-it-deflist
     - '@iktakahiro/markdown-it-katex'
   anchors:
@@ -131,7 +140,6 @@ ignore:
 theme: next
 plugins: 
   - hexo-generate-feed
-  - minivaline
 
 # minivaline:
 #   enable: true
