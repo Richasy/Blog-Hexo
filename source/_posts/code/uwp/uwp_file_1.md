@@ -55,15 +55,6 @@ public enum FINDEX_SEARCH_OPS
 }
 
 [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
-public struct CREATEFILE2_EXTENDED_PARAMETERS
-{
-    public int dwSize; 
-    public uint dwFileAttributes;
-    public uint dwFileFlags;
-    public uint dwSecurityQosFlags;
-}
-
-[StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
 public struct WIN32_FIND_DATA
 {
     public uint dwFileAttributes;
