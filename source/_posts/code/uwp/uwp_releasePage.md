@@ -1,5 +1,5 @@
 ---
-title: UWP经验 - 防止应用内存泄漏的两种方法
+title: UWP经验 - 页面导航中的暗坑
 lang: zh
 type: post
 date: 2020/12/10 18:20:00
@@ -284,11 +284,47 @@ settings.ColorValuesChanged += this.OnColorValuesChanged;
 
 简单来说就是将UI界面和事件回调打包，对外暴露一个依赖属性用来接收数据，其它的逻辑都在内部完成。这样事件的自动移除就会有迹可循。
 
-3. 谨慎使用外部控件
+3. 使用绑定逻辑
+
+经测试，如果将事件回调写在绑定上下文里，并通过绑定的方式附加在DataTemplate的指定控件中，则不会出现无法释放的问题。
+
+换言之，我们可以使用`x:Bind`提供的函数绑定功能，将我们的事件回调替换为某个方法，比如：
+
+**TestModel.cs**
+
+```csharp
+// BindableBase class implements the INotifyProeprtyChanged interface
+public class TestModel : BindableBase
+{
+    private int number;
+    public int Number
+    {
+        get => number;
+        set => Set(ref number, value);
+    }
+
+    public void IncreaseNumber()
+    {
+        Number++;
+    }
+}
+```
+
+**DataTemplate**
+
+```xml
+<DataTemplate x:Key="TestItemTemplate" x:DataType="local:TestModel">
+    <Button
+        Click="{x:Bind IncreaseNumber}"
+        Content="{x:Bind Number,Mode=OneWay}" />
+</DataTemplate>
+```
+
+4. 谨慎使用外部控件
 
 最好使用开源的控件。当一个控件内部存在没有移除的事件时，是会牵连到使用它的页面的，这同样会导致页面无法释放，而且定位起来会很麻烦。选择开源控件也只是能帮助你判断问题是否出现在这个引用的控件上。
 
-4. 尝试缓存页面
+5. ==尝试缓存页面==
 
 如果内存占用的飙升来源于不断创建新的页面实例而旧的实例无法释放。那么我们就保留一个页面实例不再创建新的实例不就行了吗？
 
